@@ -7,6 +7,9 @@
 #include <queue>
 #include <vector>
 #include <map>
+
+#include"Solution.h"
+
 using namespace std;
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 void FoundMininterpolation();
@@ -371,9 +374,8 @@ void JsonOpreater::Run() {
 }
 
 
-
 int main(int argc, char** argv) {
-    JsonOpreater jsonOpreater;
-    jsonOpreater.Run();
+   Solution s;
+    s.testcombinationSum();
     return 0;
 }

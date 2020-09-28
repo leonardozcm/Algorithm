@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/chriskafka/project/Algorithm/Solution.h
+vector
+-
+iostream
+-
+
+/home/chriskafka/project/Algorithm/main.cpp
+iostream
+-
+list
+-
+algorithm
+-
+queue
+-
+vector
+-
+map
+-
+Solution.h
+/home/chriskafka/project/Algorithm/Solution.h
+
