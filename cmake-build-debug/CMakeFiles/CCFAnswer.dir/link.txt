@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/CCFAnswer.dir/main.cpp.o  -o CCFAnswer 

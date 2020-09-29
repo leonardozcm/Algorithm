@@ -167,14 +167,22 @@ public:
             start++;
         }
         end = start + 1;
+        
         while (end < height.size())
         {
+
+            while (end + 1 < height.size() && height[end] >= height[end + 1])
+            {
+                /* code */
+                end++;
+            }
+
             /* code */
             int endmax = end;
             while (end < height.size())
             {
                 /* code */
-                if (height[end] >= height[endmax]){
+                if (height[end] >= height[endmax]){ 
                         endmax = end;
                         if(height[endmax]>=height[endmax-1]&&(endmax + 1 == height.size() || height[endmax] >= height[endmax + 1])&&height[endmax]>=height[start])
                             break;
@@ -206,7 +214,7 @@ public:
     {
         // vector<int> examples={0,1,0,2,1,0,1,3,2,1,2,1};
 
-        vector<int> examples = {5, 2, 1, 2, 1, 5};
+        vector<int> examples = {5, 4,2,1,2};
         cout << trap(examples) << endl;
     }
 };
