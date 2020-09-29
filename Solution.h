@@ -217,4 +217,12 @@ public:
         vector<int> examples = {5, 4,2,1,2};
         cout << trap(examples) << endl;
     }
+
+    string multiply(string num1, string num2) {
+        
+    }
+
+    int char2int(char a){
+       return a-'0'; 
+    }
 };
