@@ -91,69 +91,122 @@ public:
 
     int firstMissingPositive(vector<int> &nums)
     {
-        int patch=1;
-        if(!nums.size())
+        int patch = 1;
+        if (!nums.size())
             return patch;
         sort(nums.begin(), nums.end());
         for (int i = 0; i < nums.size(); i++)
         {
             /* code */
-            if(nums[i]<=0)continue;
-            if(nums[i]!=patch){
-                return patch;
-            }else
+            if (nums[i] <= 0)
+                continue;
+            if (nums[i] != patch)
             {
-                while (i+1<nums.size()&&nums[i+1]==nums[i])
+                return patch;
+            }
+            else
+            {
+                while (i + 1 < nums.size() && nums[i + 1] == nums[i])
                 {
                     /* code */
                     i++;
                 }
-                
-                
+
                 patch++;
             }
-            
         }
         return patch;
+    }
+
+    void firstMissingPositiveTest()
+    {
+        vector<int> examples = {7, 8, 9, 11, 12};
+        cout << firstMissingPositive(examples) << endl;
+    }
+
+    int trapOutoftime(vector<int> &height)
+    {
+        int start = 0;
+        int res = 0;
+        int tmp = 0;
+        int flag = 0;
+        while (start < height.size() && height[start] == 0)
+        {
+            /* code */
+            start++;
+        }
+
+        for (int i = start; i < height.size(); i++)
+        {
+            /* code */
+            if (height[i] == 0)
+                tmp++;
+            else
+            {
+                flag++;
+                res += tmp;
+                tmp = 0;
+                height[i]--;
+            }
+        }
+        if (flag < 2)
+            return 0;
+        res += trap(height);
+        return res;
+    }
+
+    int trap(vector<int> &height)
+    {
+        int start = 0;
+        int res = 0;
+        int end = 0;
+
+        while (start + 1 < height.size() && height[start] <= height[start + 1])
+        {
+            /* code */
+            start++;
+        }
+        end = start + 1;
+        while (end < height.size())
+        {
+            /* code */
+            int endmax = end;
+            while (end < height.size())
+            {
+                /* code */
+                if (height[end] >= height[endmax]){
+                        endmax = end;
+                        if(height[endmax]>=height[endmax-1]&&(endmax + 1 == height.size() || height[endmax] >= height[endmax + 1])&&height[endmax]>=height[start])
+                            break;
+                }
+                    
+                end++;
+            }
+
+                if(endmax==start+1)return res;
+                res += slideWindow(height, start, endmax);
+                start =end= endmax;
         
+            end++;
+        }
+        return res;
     }
-
-    void firstMissingPositiveTest(){
-        vector<int> examples={7,8,9,11,12};
-        cout<<firstMissingPositive(examples)<<endl;
+    int slideWindow(vector<int> &height, int start, int end)
+    {
+        int res = 0;
+        int max = height[start] < height[end] ? height[start] : height[end];
+        for (int i = start + 1; i < end; i++)
+        {
+            /* code */
+            res += max > height[i] ? max - height[i] : 0;
+        }
+        return res;
     }
+    void trapTest()
+    {
+        // vector<int> examples={0,1,0,2,1,0,1,3,2,1,2,1};
 
-     int trap(vector<int>& height) {
-         int start=0;
-         int res=0;
-         int tmp=0;
-        int flag=0;
-         while (start<height.size()&&height[start]==0)
-         {
-             /* code */
-             start++;
-         }
-         
-         for (int i = start; i < height.size(); i++)
-         {
-             /* code */
-                if(height[i]==0)
-                    tmp++;
-                else
-                {
-                    flag++;
-                    res+=tmp;
-                    tmp=0;
-                    height[i]--;
-                }      
-         }
-         if(flag<2)return 0;
-        res+=trap(height);
-         return res;
-    }
-
-    void trapTest(){
-        vector<int> examples={0,1,0,2,1,0,1,3,2,1,2,1};
-        cout<<trap(examples)<<endl;
+        vector<int> examples = {5, 2, 1, 2, 1, 5};
+        cout << trap(examples) << endl;
     }
 };
