@@ -167,7 +167,7 @@ public:
             start++;
         }
         end = start + 1;
-        
+
         while (end < height.size())
         {
 
@@ -182,19 +182,21 @@ public:
             while (end < height.size())
             {
                 /* code */
-                if (height[end] >= height[endmax]){ 
-                        endmax = end;
-                        if(height[endmax]>=height[endmax-1]&&(endmax + 1 == height.size() || height[endmax] >= height[endmax + 1])&&height[endmax]>=height[start])
-                            break;
+                if (height[end] >= height[endmax])
+                {
+                    endmax = end;
+                    if (height[endmax] >= height[endmax - 1] && (endmax + 1 == height.size() || height[endmax] >= height[endmax + 1]) && height[endmax] >= height[start])
+                        break;
                 }
-                    
+
                 end++;
             }
 
-                if(endmax==start+1)return res;
-                res += slideWindow(height, start, endmax);
-                start =end= endmax;
-        
+            if (endmax == start + 1)
+                return res;
+            res += slideWindow(height, start, endmax);
+            start = end = endmax;
+
             end++;
         }
         return res;
@@ -214,15 +216,53 @@ public:
     {
         // vector<int> examples={0,1,0,2,1,0,1,3,2,1,2,1};
 
-        vector<int> examples = {5, 4,2,1,2};
+        vector<int> examples = {5, 4, 2, 1, 2};
         cout << trap(examples) << endl;
     }
+   string multiply(string num1, string num2)
+    {
+        if (num1[0]== '0' || num2[0]== '0')
+            return "0";
+        int m = num1.size(), n = num2.size();
+        vector<int> Ansarr(m + n);
+        for (int i = m - 1; i >= 0; i--)
+        {
+            /* code */
+            for (int j = n - 1; j >= 0; j--)
+            {
+                /* code */
+                Ansarr[i + j + 1] += char2int(num1[i]) * char2int(num2[j]);
+            }
+        }
 
-    string multiply(string num1, string num2) {
-        
+        for (int i = m + n - 1; i > 0; i--)
+        {
+            /* code */
+            Ansarr[i - 1] += Ansarr[i] / 10;
+            Ansarr[i] = Ansarr[i] % 10;
+        }
+
+        int startindex=Ansarr[0]?0:1;
+        string ans;
+        while (startindex<n+m)
+        {
+            /* code */
+            ans.push_back(Ansarr[startindex]);
+            startindex++;
+        }
+        for (auto &&i : ans)
+        {
+            i+='0';
+        }
+        return ans;
     }
 
-    int char2int(char a){
-       return a-'0'; 
+    int char2int(char a)
+    {
+        return a - '0';
+    }
+
+    bool isMatch(string s, string p) {
+        
     }
 };
