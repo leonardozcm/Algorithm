@@ -376,6 +376,6 @@ void JsonOpreater::Run() {
 
 int main(int argc, char** argv) {
    Solution s;
-    s.trapTest();
+    s.testisMatch();
     return 0;
 }

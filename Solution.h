@@ -219,9 +219,9 @@ public:
         vector<int> examples = {5, 4, 2, 1, 2};
         cout << trap(examples) << endl;
     }
-   string multiply(string num1, string num2)
+    string multiply(string num1, string num2)
     {
-        if (num1[0]== '0' || num2[0]== '0')
+        if (num1[0] == '0' || num2[0] == '0')
             return "0";
         int m = num1.size(), n = num2.size();
         vector<int> Ansarr(m + n);
@@ -242,9 +242,9 @@ public:
             Ansarr[i] = Ansarr[i] % 10;
         }
 
-        int startindex=Ansarr[0]?0:1;
+        int startindex = Ansarr[0] ? 0 : 1;
         string ans;
-        while (startindex<n+m)
+        while (startindex < n + m)
         {
             /* code */
             ans.push_back(Ansarr[startindex]);
@@ -252,7 +252,7 @@ public:
         }
         for (auto &&i : ans)
         {
-            i+='0';
+            i += '0';
         }
         return ans;
     }
@@ -262,7 +262,46 @@ public:
         return a - '0';
     }
 
-    bool isMatch(string s, string p) {
-        
+    bool isMatch(string s, string p)
+    {   
+
+        if(s.empty()&&(p.empty()||p.at(0)=='*')){
+            return true;
+        }
+        vector<vector<int>>    patch(p.size(),vector<int> (s.size()));
+        patch[0][0]=isPatch(s.at(0),p.at(0));
+     
+        for (int i = 0; i < p.size(); i++)
+        {
+            char p_tmp = p.at(i);
+            for (int j = 0; j < s.size(); j++)
+            {
+                if(i>0&&j>0&&p_tmp!='*')
+                    patch[i][j]=patch[i-1][j-1]&&isPatch(s.at(j),p_tmp);
+                else if (j==0)
+                {
+                   patch[i][j]=isPatch(s.at(j),p_tmp)&&(i>0?patch[i-1][j]:true);
+                }else if(p_tmp=='*'){
+                    patch[i][j]=true;
+                }     
+            }
+        }
+    return patch[p.size()-1][s.size()-1];
+    }
+
+    bool isPatch(char s, char p)
+    {
+        if (p == '*' || p == '?' || p == s)
+            return true;
+        else
+            return false;
+    }
+
+    void testisMatch(){
+        string s="aa";
+        string p="*";
+        // string s="adceb";
+        // string p="a*c?b";
+        cout<<isMatch(s,p)<<endl;
     }
 };
