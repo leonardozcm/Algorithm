@@ -278,11 +278,15 @@ public:
             {
                 if(i>0&&j>0&&p_tmp!='*')
                     patch[i][j]=patch[i-1][j-1]&&isPatch(s.at(j),p_tmp);
-                else if (j==0)
+                else if (i==0&&j==0&&p_tmp!='*')
                 {
-                   patch[i][j]=isPatch(s.at(j),p_tmp)&&(i>0?patch[i-1][j]:true);
-                }else if(p_tmp=='*'){
-                    patch[i][j]=true;
+                   patch[i][j]=isPatch(s.at(0),p.at(0));
+                }
+              else  if(p_tmp=='*'){
+                    if(j==0)
+                        patch[i][j]=i==0?true:patch[i-1][j];
+                    else
+                        patch[i][j]= i==0?patch[i][j-1]:patch[i-1][j-1]||patch[i][j-1];
                 }     
             }
         }
@@ -298,10 +302,16 @@ public:
     }
 
     void testisMatch(){
-        string s="aa";
-        string p="*";
-        // string s="adceb";
-        // string p="a*c?b";
+        // string s="mississippi";
+        // string p="m??*ss*?i*pi";
+        
+        // string s="aab";
+        // string p="c*a*b";
+        string s="adceb";
+        string p="*a*b";
+        // string s="aa";
+        // string p="*";
+        
         cout<<isMatch(s,p)<<endl;
     }
 };
