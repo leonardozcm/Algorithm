@@ -6,13 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/home/chriskafa/MyProjects/Algorithm/Solution.h
+/home/chriskafka/project/Algorithm/Solution.h
 vector
+-
+map
 -
 iostream
 -
 
-/home/chriskafa/MyProjects/Algorithm/main.cpp
+/home/chriskafka/project/Algorithm/main.cpp
 iostream
 -
 list
@@ -26,5 +28,5 @@ vector
 map
 -
 Solution.h
-/home/chriskafa/MyProjects/Algorithm/Solution.h
+/home/chriskafka/project/Algorithm/Solution.h
 

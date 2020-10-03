@@ -1,9 +1,7 @@
 #pragma once
 #include <vector>
-
+#include<map>
 #include <iostream>
-
-
 using namespace std;
 
 class Solution
@@ -265,34 +263,65 @@ public:
     }
 
     bool isMatch(string s, string p)
-    {   
+    {
 
-        if(s.empty()&&(p.empty()||p.at(0)=='*')){
+        if (s.empty() && (p.empty() || (p.size()==1&&p.at(0)=='*')))
+        {
             return true;
+        }else if(s.empty()||p.empty())
+        {
+            /* code */
+            return false;
         }
-        vector<vector<int>>    patch(p.size(),vector<int> (s.size()));
-        patch[0][0]=isPatch(s.at(0),p.at(0));
-     
+        string tmp;
+        bool flag=true;
+        for (int i = 0; i < p.size(); i++)
+        {
+            /* code */
+            if(p.at(i)!='*'){
+                tmp.push_back(p.at(i));
+                flag=true;
+            }else
+            {
+                if(flag){tmp.push_back('*');
+            flag=false;
+}
+            }
+            
+
+        }
+        p=tmp;
+        
+        vector<vector<int>> patch(p.size(), vector<int>(s.size()));
+        patch[0][0] = isPatch(s.at(0), p.at(0));
+
         for (int i = 0; i < p.size(); i++)
         {
             char p_tmp = p.at(i);
             for (int j = 0; j < s.size(); j++)
             {
-                if(i>0&&j>0&&p_tmp!='*')
-                    patch[i][j]=patch[i-1][j-1]&&isPatch(s.at(j),p_tmp);
-                else if (i==0&&j==0&&p_tmp!='*')
+                if (i > 0 && j > 0 && p_tmp != '*')
+                    patch[i][j] = patch[i - 1][j - 1] && isPatch(s.at(j), p_tmp);
+                else if (i == 0 && j == 0 && p_tmp != '*')
                 {
-                   patch[i][j]=isPatch(s.at(0),p.at(0));
+                    patch[i][j] = isPatch(s.at(0), p.at(0));
                 }
-              else  if(p_tmp=='*'){
-                    if(j==0)
-                        patch[i][j]=i==0?true:patch[i-1][j];
+                else if (p_tmp == '*')
+                {
+                    if (j == 0)
+                    {
+                        patch[i][j] = i == 0 ? true : patch[i - 1][j];
+                        int tail=p.at(0)=='*'?2:1;
+                        if(i<tail&&i+1<p.size())
+                            patch[i+1][j]=patch[i][j]&&isPatch(s.at(j), p.at(i+1));
+                    }
+
                     else
-                        patch[i][j]= i==0?patch[i][j-1]:patch[i-1][j-1]||patch[i][j-1];
-                }     
+                        patch[i][j] = i == 0 ? patch[i][j - 1] : patch[i - 1][j - 1] || patch[i][j - 1] || patch[i-1][j ];
+                }
             }
         }
-    return patch[p.size()-1][s.size()-1];
+        return patch[p.size() - 1][s.size() - 1];
     }
 
     bool isPatch(char s, char p)
@@ -303,20 +332,24 @@ public:
             return false;
     }
 
-    void testisMatch(){
+    void testisMatch()
+    {
+       string s = "b";
+        string p = "*a*";
         // string s="mississippi";
         // string p="m??*ss*?i*pi";
-        // string s="aab";weiweiwei
-        // string p="c*a*b";weiweiweiweiwei
-        string s="adceb";
-        string p="*a*b";
+
+        // string s="aab";
+        // string p="c*a*b";
+        // string s = "adceb";
+        // string p = "*a*b";
         // string s="aa";
         // string p="*";
-        
-        cout<<isMatch(s,p)<<endl;
+
+        cout << isMatch(s, p) << endl;
     }
 
-        int jump(vector<int>& nums) {
+ int jump(vector<int>& nums) {
             if(nums.size()==1)return 0;
             int step=0;
             int start=0;
@@ -372,5 +405,68 @@ public:
         backtrack( nums,res, 0, (int)nums.size());
         return res;
 
+    }
+        void rotate(vector<vector<int>>& matrix) {
+            int n=matrix.size();
+            //up and down
+            for (int i = 0; i < n/2; i++)
+            {
+                /* code */
+                matrix[i].swap(matrix[n-1-i]);
+            }
+            for (int i = 0; i <n; i++)
+            {
+                /* code */
+                for (int j = i; j < n; j++)
+                {
+                    /* code */
+                    swap(matrix[i][j],matrix[j][i]);
+                }
+                
+                
+            }
+    }
+
+      vector<vector<string>> groupAnagrams(vector<string>& strs) {
+            vector<vector<string>> res;
+            map<string,vector<string>> strmap;
+            for (auto &&i : strs)
+            {
+                string t=i;
+                sort(t.begin(),t.end());
+                strmap[t].push_back(i);
+            }
+            for (auto &&i : strmap)
+            {
+                res.push_back(i.second);
+            }
+            return res;
+            
+    }
+
+        double myPow(double x, int n) {
+            if(x==0)return 0;
+          
+            if(n<0)
+                return 1/myPow(x,-n);
+            else if (n==0||x==1)
+            {
+                /* code */
+                return 1;
+            }
+            
+
+            if(n%2==0){
+                double tmp=myPow(x,n/2);
+                return tmp*tmp;
+            }else
+            {
+                 double tmp=myPow(x,(int)n/2);
+                return tmp*tmp*x;
+            }
+            
+    }                                                                   
+    void testMypow(){
+        cout <<myPow(1.00000,-2147483648)<<endl;
     }
 };

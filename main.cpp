@@ -376,6 +376,7 @@ void JsonOpreater::Run() {
 
 int main(int argc, char** argv) {
    Solution s;
-    s.testJump();
+    s.testMypow();
+
     return 0;
 }

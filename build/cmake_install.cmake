@@ -1,4 +1,4 @@
-# Install script for directory: /home/chriskafa/MyProjects/Algorithm
+# Install script for directory: /home/chriskafka/project/Algorithm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/chriskafa/MyProjects/Algorithm/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/chriskafka/project/Algorithm/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
