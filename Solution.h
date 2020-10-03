@@ -2,6 +2,8 @@
 #include <vector>
 
 #include <iostream>
+
+
 using namespace std;
 
 class Solution
@@ -304,14 +306,71 @@ public:
     void testisMatch(){
         // string s="mississippi";
         // string p="m??*ss*?i*pi";
-        
-        // string s="aab";
-        // string p="c*a*b";
+        // string s="aab";weiweiwei
+        // string p="c*a*b";weiweiweiweiwei
         string s="adceb";
         string p="*a*b";
         // string s="aa";
         // string p="*";
         
         cout<<isMatch(s,p)<<endl;
+    }
+
+        int jump(vector<int>& nums) {
+            if(nums.size()==1)return 0;
+            int step=0;
+            int start=0;
+            int end=0;
+            while(end<nums.size()-1){
+                int max=end;
+                for (int i = start; i <= end; i++)
+                {
+                    /* code */
+                    if(nums[i]+i>max){
+                        max=nums[i]+i;
+                    }
+                }
+                start=end+1;
+                end=max;
+                step++;
+                
+            }
+            return step;
+        }
+    
+    void testJump(){
+        vector<int> examples={1,1,1,1};
+        cout<<jump(examples)<<endl;
+    }
+
+    void backtrack(vector<int>& nums,vector<vector<int>> &res,int first,int length){
+            if(first==length){
+                res.emplace_back(nums);
+                return;
+            }
+            vector<int> searched;
+            for (int i = first; i < length; i++)
+            {
+                /* code */
+
+                if(count(searched.begin(),searched.end(),nums[i])){
+                    continue;
+                }else
+                {
+                    searched.push_back(nums[i]);
+                }
+                
+                swap(nums[first],nums[i]);
+                backtrack(nums,res,first+1,length);
+                swap(nums[first],nums[i]);
+            }
+            
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) {
+            vector<vector<int> > res;
+        backtrack( nums,res, 0, (int)nums.size());
+        return res;
+
     }
 };
